@@ -6,8 +6,10 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  NavLink,
   Container,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import RegisterModal from './auth/RegisterModal.component';
 import LoginModal from './auth/LoginModal.component';
@@ -28,6 +30,19 @@ const AppNavbar = ({ auth }) => {
           </strong>
         </span>
       </NavItem>
+
+      {auth && auth.user && auth.user.role === 'recruiter' && (
+        <>
+          <NavItem>
+            <NavLink>
+              <Link className='option' to='/recruiter-dashboard'>
+                Dashboard
+              </Link>
+            </NavLink>
+          </NavItem>
+        </>
+      )}
+
       <NavItem>
         <Logout />
       </NavItem>

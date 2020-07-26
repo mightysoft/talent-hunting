@@ -12,6 +12,7 @@ const UserDiv = ({ user }) => (
 );
 
 function LogInForm({ auth }) {
+  console.log('auth : ', auth.isAuthenticated);
   if (auth && auth.user && auth.user.role === 'recruiter') {
     return <RecruiterHomePage />;
   }

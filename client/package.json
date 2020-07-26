@@ -10,7 +10,9 @@
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.3.0",
@@ -25,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8000",
   "eslintConfig": {
     "extends": "react-app"
   },
