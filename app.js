@@ -9,6 +9,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const jobPostRoutes = require('./routes/jobPostRoutes');
 
 
 
@@ -27,9 +28,17 @@ if(process.env.NODE_ENV === 'development'){
 // Body parser Middleware
 app.use(express.json());
 
+
+//Test Middleware
+// app.use((req, res, next) => {
+//   req.requestTime = new Date().toISOString();
+//   // console.log(req.cookies); 
+//   next();
+// });
 // Use Routes
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/job-post',jobPostRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
