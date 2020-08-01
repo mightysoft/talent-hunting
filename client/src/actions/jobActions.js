@@ -9,7 +9,7 @@ export const jobPost = body => (dispatch, getState) => {
     .post('/api/job/create-job-post', body, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: JOB_POST,
+        type: actions.JOB_POST,
         payload: res.data,
       })
     )
@@ -18,7 +18,7 @@ export const jobPost = body => (dispatch, getState) => {
         returnErrors(err.response.data, err.response.status, 'JOB_POST_FAIL')
       );
       dispatch({
-        type: JOB_POST_FAIL,
+        type: actions.JOB_POST_FAIL,
       });
     });
 };

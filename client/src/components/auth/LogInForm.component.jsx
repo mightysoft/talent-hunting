@@ -23,9 +23,9 @@ function LogInForm({ auth }) {
 
   return (
     <Fragment>
-      {auth && auth.user ? (
-        <UserDiv user={auth.user} />
-      ) : (
+      {auth && auth.user && <UserDiv user={auth.user} />}
+
+      {auth.isAuthenticated === false && (
         <h4 className='mb-3 ml-4'>Please log in to manage....</h4>
       )}
     </Fragment>

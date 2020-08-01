@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const jobPostSchema = new mongoose.Schema({
+const jobSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, 'A job post have a type!'],
     enum: {
-      values: ['Full Time', 'Part Time'],
+      values: ['Full Time', 'Part Time', 'Part Time/Full Time', 'Full Time/Part Time'],
       message: 'Type either : Full Time,Part Time',
     },
   },
@@ -36,5 +36,5 @@ const jobPostSchema = new mongoose.Schema({
   },
 });
 
-const JobPost = mongoose.model('JobPost', jobPostSchema);
-module.exports = JobPost;
+const Job = mongoose.model('Jobs', jobSchema);
+module.exports = Job;
