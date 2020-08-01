@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import AppNavbar from './components/AppNavbar.component';
-import UserDiv from './components/UserDiv.component';
 import { Container } from 'reactstrap';
 import { Switch, Route } from 'react-router-dom';
 
@@ -20,6 +19,7 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
   return (
     <Provider store={store}>
       <div className='App'>
