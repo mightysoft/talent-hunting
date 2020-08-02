@@ -14,8 +14,8 @@ import {
   Alert,
 } from 'reactstrap';
 
-import { login } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
+import { login } from '../../redux/actions/authActions';
+import { clearErrors } from '../../redux/actions/errorActions';
 
 const LoginModal = ({ isAuthenticated, user, error, login, clearErrors }) => {
   const [modal, setModal] = useState(false);

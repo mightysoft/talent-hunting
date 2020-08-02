@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
+import { login } from '../../redux/actions/authActions';
+import { clearErrors } from '../../redux/actions/errorActions';
 import RecruiterHomePage from '../recruiter/RecruiterHomePage.component';
 import EngineerHomePage from '../engineer/EngineerHomePage.component';
 

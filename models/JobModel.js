@@ -1,18 +1,28 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
+  // TODO: recruiter id should be added
+  rec_id: {
+    type: String,
+    ref: 'User',
+    default: [true, 'Job post must be belong to a reacuiter.'],
+  },
   type: {
     type: String,
     required: [true, 'A job post have a type!'],
     enum: {
-      values: ['Full Time', 'Part Time', 'Part Time/Full Time', 'Full Time/Part Time'],
+      values: [
+        'Full Time',
+        'Part Time',
+        'Part Time/Full Time',
+        'Full Time/Part Time',
+      ],
       message: 'Type either : Full Time,Part Time',
     },
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
-    select: false,
+    default: Date.now,
   },
   company: {
     type: String,
@@ -38,3 +48,5 @@ const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Jobs', jobSchema);
 module.exports = Job;
+
+// Appled : number

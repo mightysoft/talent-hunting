@@ -1,19 +1,20 @@
 const express = require('express');
 const jobController = require('../controllers/jobController');
 const { auth, ensureEngineer, ensureRecruiter } = require('../middleware/auth');
-const { route } = require('./userRoutes');
 const router = express.Router();
+
+// TODO: '/apply-job/:id', jobController.applyJob
 
 router.use(auth);
 
 // get-jobs, only for engineers
-router.get('/all-jobs', ensureEngineer, jobController.getAllJobPost);
+router.get('/all-jobs', jobController.getAllJobPost);
 
 // create job post, only for recruiters
 router.post('/create-job-post', ensureRecruiter, jobController.createJobPost);
 
 // get a particular jon post
-router.get('/get-job-post/:id', ensureRecruiter, jobController.getJobPost);
+router.get('/get-job-post/:id', jobController.getJobPost);
 
 // update job post, only for recruiters
 router.patch(
