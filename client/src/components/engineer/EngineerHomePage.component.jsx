@@ -6,8 +6,14 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getAllJobs } from '../../redux/actions/jobActions';
 
-const EngineerHomePage = ({ getAllJobs, job }) => {
+const EngineerHomePage = ({ getAllJobs, jobs }) => {
   const history = useHistory();
+
+  console.log('jobs ', jobs);
+  if (jobs.jobs) {
+    jobs.jobs.map(job => console.log(job._id));
+    // console.log('josss', jobs.jobs);
+  }
   useEffect(() => {
     getAllJobs();
   }, ['']);
@@ -18,8 +24,8 @@ const EngineerHomePage = ({ getAllJobs, job }) => {
       <br />
       <h5>All Job Posts :</h5>
       <br />
-      {job.jobs &&
-        job.jobs.data.map(job => (
+      {jobs.jobs &&
+        jobs.jobs.map(job => (
           <Card className='mb-3' key={job._id}>
             <Card.Body>
               <div className='d-flex justify-content-between'>
@@ -51,7 +57,7 @@ const EngineerHomePage = ({ getAllJobs, job }) => {
 };
 
 const mapStateToProps = state => ({
-  job: state.job,
+  jobs: state.job.jobs,
 });
 
 export default connect(mapStateToProps, { getAllJobs })(EngineerHomePage);

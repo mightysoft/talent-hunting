@@ -3,8 +3,6 @@ const Job = require('../models/JobModel');
 // const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
-
-
 exports.getAllJobPost = factory.getAll(Job);
 
 exports.createJobPost = factory.createOne(Job);

@@ -5,7 +5,7 @@ const jobSchema = new mongoose.Schema({
   rec_id: {
     type: String,
     ref: 'User',
-    default: [true, 'Job post must be belong to a reacuiter.'],
+    required: [true, 'Job post must be belong to a reacuiter.'],
   },
   type: {
     type: String,

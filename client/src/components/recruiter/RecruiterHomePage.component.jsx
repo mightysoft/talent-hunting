@@ -1,7 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 
-function RecruiterHomePage() {
+import { jobPost } from '../../redux/actions/jobActions';
+
+const RecruiterHomePage = ({ auth, jobPost, jobs }) => {
+  const [companyName, setCompanyName] = useState('');
+  const [location, setLocation] = useState('');
+  const [skills, setSkills] = useState('');
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState('Full Time');
+  const [des, setDes] = useState('');
+
+  // console.log('re jobs', jobs);
+  const handleSetCompanyName = e => setCompanyName(e.target.value);
+  const handleSetLocation = e => setLocation(e.target.value);
+  const handleSetSkills = e => setSkills(e.target.value);
+  const handleSetTitle = e => setTitle(e.target.value);
+  const handleSetType = e => setType(e.target.value);
+  const handleSetDes = e => setDes(e.target.value);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const body = {
+      rec_id: auth.user._id,
+      type,
+      company: companyName,
+      location,
+      title,
+      description: des,
+      skills,
+    };
+
+    jobPost(body);
+  };
+
   return (
     <Fragment>
       <h2>Welcome to Recruiter Page!</h2>
@@ -9,7 +43,7 @@ function RecruiterHomePage() {
       <h3>Post a job here!</h3>
       <br />
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for='Company'>Company</Label>
           <Input
@@ -18,16 +52,7 @@ function RecruiterHomePage() {
             id='Company'
             className='mb-3'
             placeholder='Company Name'
-            required
-          />
-
-          <Label for='Companyurl'>Company URL</Label>
-          <Input
-            type='text'
-            name='Companyurl'
-            id='Companyurl'
-            className='mb-3'
-            placeholder='Company URL'
+            onChange={handleSetCompanyName}
             required
           />
 
@@ -37,7 +62,8 @@ function RecruiterHomePage() {
             name='location'
             id='location'
             className='mb-3'
-            placeholder='Location'
+            placeholder='City or Country name'
+            onChange={handleSetLocation}
             required
           />
 
@@ -48,18 +74,24 @@ function RecruiterHomePage() {
             id='title'
             className='mb-3'
             placeholder='Job Title'
+            onChange={handleSetTitle}
             required
           />
 
           <Label for='type'>Type</Label>
           <Input
-            type='type'
+            type='select'
             name='type'
             id='type'
             className='mb-3'
-            placeholder='Job Type'
             required
-          />
+            onChange={handleSetType}
+          >
+            <option>Full Time</option>
+            <option>Part Time</option>
+            <option>Part Time/Full Time</option>
+            <option>Full Time/Part Time</option>
+          </Input>
 
           <Label for='description'>description</Label>
           <Input
@@ -68,6 +100,7 @@ function RecruiterHomePage() {
             id='description'
             className='mb-3'
             placeholder='Job description'
+            onChange={handleSetDes}
             required
           />
 
@@ -78,6 +111,7 @@ function RecruiterHomePage() {
             id='key_skills'
             className='mb-3'
             placeholder='java, python..'
+            onChange={handleSetSkills}
             required
           />
 
@@ -88,6 +122,13 @@ function RecruiterHomePage() {
       </Form>
     </Fragment>
   );
-}
+};
 
-export default RecruiterHomePage;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  jobs: state.job.jobs,
+});
+
+export default connect(mapStateToProps, { jobPost })(RecruiterHomePage);
+
+// TODO: Company url will be added
