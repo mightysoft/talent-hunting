@@ -10,14 +10,12 @@ const { auth } = require('../middleware/auth');
 // @route POST api/auth
 // @desc Auth users
 // @access Public
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   const { email, password } = req.body;
 
   // Simple validation
   if (!email || !password) {
-    return res.status(400).json({
-      msg: 'Please enter all fields 🙂',
-    });
+    return next(new AppError('Please enter all fields 🙂', 400));
   }
 
   // Check for existing user

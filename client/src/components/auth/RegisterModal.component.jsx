@@ -14,8 +14,8 @@ import {
   Alert,
 } from 'reactstrap';
 
-import { register } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
+import { register } from '../../redux/actions/authActions';
+import { clearErrors } from '../../redux/actions/errorActions';
 
 const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
   const [modal, setModal] = useState(false);

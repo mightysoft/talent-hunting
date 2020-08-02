@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions/authActions';
-import { clearErrors } from '../../actions/errorActions';
+import { login } from '../../redux/actions/authActions';
+import { clearErrors } from '../../redux/actions/errorActions';
 import RecruiterHomePage from '../recruiter/RecruiterHomePage.component';
 import EngineerHomePage from '../engineer/EngineerHomePage.component';
 
@@ -23,9 +23,9 @@ function LogInForm({ auth }) {
 
   return (
     <Fragment>
-      {auth && auth.user ? (
-        <UserDiv user={auth.user} />
-      ) : (
+      {auth && auth.user && <UserDiv user={auth.user} />}
+
+      {auth.isAuthenticated === false && (
         <h4 className='mb-3 ml-4'>Please log in to manage....</h4>
       )}
     </Fragment>

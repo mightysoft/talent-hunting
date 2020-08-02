@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/authActions';
+import { logout } from '../../redux/actions/authActions';
 import { NavLink } from 'reactstrap';
 
 export const Logout = ({ logout }) => {

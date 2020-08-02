@@ -17,3 +17,14 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const GET_ERRORS = 'GET_ERRORS';
 
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+// Job Action types
+export const JOB_POST = 'JOB_POST';
+
+export const JOB_POST_FAIL = 'JOB_POST_FAIL';
+
+export const GET_ALL_JOBS = 'GET_ALL_JOBS';
+
+export const JOB_DETAIL = 'JOB_DETAIL';
+
+export const JOBS_LOADING = 'JOBS_LOADING';

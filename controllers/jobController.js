@@ -4,6 +4,7 @@ const Job = require('../models/JobModel');
 const factory = require('./handlerFactory');
 
 
+
 exports.getAllJobPost = factory.getAll(Job);
 
 exports.createJobPost = factory.createOne(Job);
