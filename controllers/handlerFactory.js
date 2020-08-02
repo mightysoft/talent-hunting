@@ -15,50 +15,49 @@ exports.deleteOne = Model =>
 
 exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+    const job = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-    if (!doc) {
+    if (!job) {
       return next(new AppError('No doccument found with that id', 404));
     }
     res.status(200).json({
       status: 'success',
-      data: doc,
+      job,
     });
   });
 
 exports.createOne = Model =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.create(req.body);
+    const job = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
-      data: doc,
+      job,
     });
   });
 
 exports.getOne = Model =>
   catchAsync(async (req, res, next) => {
-    let query = await Model.findById(req.params.id);
-    const doc = query;
-    if (!doc) {
+    let job = await Model.findById(req.params.id);
+    
+    if (!job) {
       return next(new AppError('No Document found with that id', 404));
     }
     res.status(200).json({
       status: 'success',
-      data: doc,
+      job,
     });
   });
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-
-    const doc = await Model.find().sort({ createdAt: -1 });
+    const jobs = await Model.find().sort({ createdAt: -1 });
 
     // SEND Response res
     res.status(200).json({
-      status: 'success1',
-      results: doc.length,
-      data: doc,
+      status: 'success',
+      results: jobs.length,
+      jobs
     });
   });

@@ -8,45 +8,44 @@ import { getJobDetails } from '../../redux/actions/jobActions';
 
 const JobDetail = ({ getJobDetails, job, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const jobDetail = job.job;
   const { id } = useParams();
-  console.log('job', job);
   useEffect(() => {
     getJobDetails(id);
   }, ['']);
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  console.log('here detail');
   return (
     <div>
-      {job && (
-        <Card className='mb-3' key={job.data._id}>
+      {jobDetail && (
+        <Card className='mb-3' key={jobDetail._id}>
           <Card.Body>
             <div className='d-flex justify-content-between'>
               <div>
-                <Card.Title>{job.data.title}</Card.Title>
+                <Card.Title>{jobDetail.title}</Card.Title>
                 <Card.Subtitle className='text-muted mb-2'>
-                  {dayjs(job.createdAt).format('h:mm A, MMMM DD, YYYY')}
+                  {dayjs(jobDetail.createdAt).format('h:mm A, MMMM DD, YYYY')}
                 </Card.Subtitle>
                 <Badge variant='secondary' className='mr-2'>
-                  {job.data.type}
+                  {jobDetail.type}
                 </Badge>
-                <Badge variant='secondary'>{job.data.location}</Badge>
+                <Badge variant='secondary'>{jobDetail.location}</Badge>
               </div>
             </div>
 
             <Collapse in={true}>
               <div className='mt-4'>
                 <p>Job Description</p>
-                <p>{job.data.type}</p>
-                <p>{job.data.location}</p>
-                <p>{job.data.company}</p>
-                <p>{job.data.description}</p>
+                <p>{jobDetail.type}</p>
+                <p>{jobDetail.location}</p>
+                <p>{jobDetail.company}</p>
+                <p>{jobDetail.description}</p>
               </div>
             </Collapse>
 
-            {job.data.skills.split(',').map(skill => (
+            {/* {job.skills} */}
+            {jobDetail.skills.split(',').map(skill => (
               <Badge variant='info' className='mr-2' key={skill}>
                 <h6>{skill}</h6>
               </Badge>
@@ -54,6 +53,7 @@ const JobDetail = ({ getJobDetails, job, isLoading }) => {
           </Card.Body>
         </Card>
       )}
+
       <br />
       <Button variant='outline-success' title='Apply' onClick={handleToggle}>
         Apply!

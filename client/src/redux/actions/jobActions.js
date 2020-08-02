@@ -7,11 +7,13 @@ import { tokenConfig } from './authActions';
 export const jobPost = body => (dispatch, getState) => {
   axios
     .post('/api/job/create-job-post', body, tokenConfig(getState))
-    .then(res =>
+    .then(res =>{
+console.log('res', res.data);
       dispatch({
         type: actions.JOB_POST,
         payload: res.data,
       })
+    }
     )
     .catch(err => {
       dispatch(

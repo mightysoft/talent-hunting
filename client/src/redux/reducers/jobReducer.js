@@ -1,8 +1,8 @@
 import * as actions from '../actions/actionTypes';
 
 const initialState = {
-  jobs: null,
-  job: null,
+  jobs: [],
+  job: [],
   isLoading: false,
 };
 
@@ -12,6 +12,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoading: true,
+      };
+
+    case actions.JOB_POST:
+      return {
+        ...state,
+        jobs: [...state.jobs, action.payload],
+        isLoading: false,
       };
 
     case actions.GET_ALL_JOBS:
