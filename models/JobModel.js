@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-  // TODO: recruiter id should be added
   rec_id: {
     type: String,
     ref: 'User',
@@ -48,5 +47,3 @@ const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Jobs', jobSchema);
 module.exports = Job;
-
-// Appled : number
