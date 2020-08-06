@@ -6,7 +6,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -30,15 +29,22 @@ const AppNavbar = ({ auth }) => {
           </strong>
         </span>
       </NavItem>
+      <NavItem className='p-2'>
+        {auth.user && auth.user.role === 'recruiter' ? (
+          <Link className='option' to='/recruiter-home'>
+            Home
+          </Link>
+        ) : (
+          <Link to='/dev-home'>Home</Link>
+        )}
+      </NavItem>
 
       {auth && auth.user && auth.user.role === 'recruiter' && (
         <>
-          <NavItem>
-            <NavLink>
-              <Link className='option' to='/recruiter-dashboard'>
-                Dashboard
-              </Link>
-            </NavLink>
+          <NavItem className='p-2'>
+            <Link className='option' to='/recruiter-dashboard'>
+              Dashboard
+            </Link>
           </NavItem>
         </>
       )}

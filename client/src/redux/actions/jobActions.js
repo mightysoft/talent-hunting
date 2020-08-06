@@ -7,14 +7,13 @@ import { tokenConfig } from './authActions';
 export const jobPost = body => (dispatch, getState) => {
   axios
     .post('/api/job/create-job-post', body, tokenConfig(getState))
-    .then(res =>{
-console.log('res', res.data);
+    .then(res => {
+      console.log('res', res.data);
       dispatch({
         type: actions.JOB_POST,
         payload: res.data,
-      })
-    }
-    )
+      });
+    })
     .catch(err => {
       dispatch(
         returnErrors(err.response.data, err.response.status, 'JOB_POST_FAIL')
@@ -23,6 +22,22 @@ console.log('res', res.data);
         type: actions.JOB_POST_FAIL,
       });
     });
+};
+
+// get recruiter postes jobs
+export const getRecPostedJobs = id => (dispatch, getState) => {
+  dispatch(setJobsLoading());
+  axios
+    .get(`/api/job/get-posted-jobs/${id}`, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: actions.REC_POSTED_JOBS,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // get all posted jobs -> only for developer/engineer
@@ -51,6 +66,38 @@ export const getJobDetails = id => (dispatch, getState) => {
       // console.log(res.data)
       dispatch({
         type: actions.JOB_DETAIL,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
+// apply a job => only for dev/engineers
+export const applyJob = body => (dispatch, getState) => {
+  axios
+    .post(`/api/job/apply-job`, body, tokenConfig(getState))
+    .then(res =>
+      console.log('Applied Data ',res.data)
+      // dispatch({
+      //   type: actions.GET_JOB_APPLIED_DATA,
+      //   payload: res.data,
+      // }) TODO: show applied result to a user if he/she applied
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
+// get applied data based on job id => only for recruiters
+export const getAppliedData = jobId => (dispatch, getState) => {
+  axios
+    .get(`/api/job/get-applied-data/${jobId}`, tokenConfig(getState))
+    .then(res =>
+      // console.log('getAppliedData ',res.data)
+      dispatch({
+        type: actions.GET_JOB_APPLIED_DATA,
         payload: res.data,
       })
     )

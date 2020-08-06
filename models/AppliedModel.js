@@ -6,13 +6,14 @@ const appliedSchema = new mongoose.Schema({
       type: String,
       required: [true, 'Applied must belong to a user (name).'],
     },
+
     email: {
       type: String,
-      required: [true, 'Applied must belong to a user(email).'],
+      required: [true, 'Applied must belong to a user (email).'],
     },
     type: Object,
     ref: 'User',
-    required: [true, 'Applied must belong to a User.'],
+    required: [true, 'Applied must belong to a user.'],
   },
 
   jobId: {
@@ -23,8 +24,9 @@ const appliedSchema = new mongoose.Schema({
 
   userSkills: {
     type: Array,
-    required: [true, 'User must have skills'],
+    required: [true, 'User must have skills.'],
   },
+
   skillsPerc: {
     type: String,
     required: [true, 'Applied must have a skills perc.'],

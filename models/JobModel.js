@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-  rec_id: {
-    type: String,
+  recId: {
+    type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'Job post must be belong to a reacuiter.'],
   },
@@ -47,3 +47,5 @@ const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Jobs', jobSchema);
 module.exports = Job;
+
+// Appled : number

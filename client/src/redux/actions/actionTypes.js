@@ -28,3 +28,7 @@ export const GET_ALL_JOBS = 'GET_ALL_JOBS';
 export const JOB_DETAIL = 'JOB_DETAIL';
 
 export const JOBS_LOADING = 'JOBS_LOADING';
+
+export const GET_JOB_APPLIED_DATA = 'GET_JOB_APPLIED_DATA';
+
+export const REC_POSTED_JOBS = 'REC_POSTED_JOBS';
