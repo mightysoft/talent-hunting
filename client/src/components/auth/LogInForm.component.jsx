@@ -26,7 +26,9 @@ function LogInForm({ auth }) {
       {auth && auth.user && <UserDiv user={auth.user} />}
 
       {auth.isAuthenticated === false && (
-        <h4 className='mb-3 ml-4'>Please log in to manage....</h4>
+        <h4 className='mb-3 ml-4'>
+          Welcome to Talent Hunting! <br /> Please log in to process....
+        </h4>
       )}
     </Fragment>
   );

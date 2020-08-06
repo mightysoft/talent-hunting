@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-  // TODO: recruiter id should be added
-  rec_id: {
-    type: String,
+  recId: {
+    type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'Job post must be belong to a reacuiter.'],
   },

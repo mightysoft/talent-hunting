@@ -1,31 +1,56 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const Dashboard = ({ isAuthenticated }) => {
-  if (!isAuthenticated) return <Redirect to='/' />;
+import Job from '../job/Job.component';
+import { getRecPostedJobs } from '../../redux/actions/jobActions';
+
+const Dashboard = ({
+  isAuthenticated,
+  user,
+  getRecPostedJobs,
+  recPostJobs,
+}) => {
+  console.log('user ', user);
+  console.log('recPostJobs ', recPostJobs);
+  useEffect(() => {
+    if (user) {
+      console.log('here');
+      getRecPostedJobs(user._id);
+    }
+  }, [user]);
+
+  if ((user && user.role === 'engineer') || isAuthenticated === false)
+    return <Redirect to='/' />;
 
   return (
-    <div className='container'>
-      <div className='row'>
-        <div className='col-mx-12 col-md-12 col-sm-12'>
-          <strong>Posted Jobs</strong>
-          <hr />
-        </div>
-      </div>
+    <Fragment>
+      <h4>Posted Jobs</h4>
+      <Row>
+        {recPostJobs &&
+          recPostJobs.map(job => (
+            <Col lg='4' md='6' sm='12' key={job._id}>
+              <Job job={job} />
+            </Col>
+          ))}
+        <hr />
+      </Row>
 
-      <div className='row'>
+      {/* <div className='row'>
         <div className='col-mx-12 col-md-12 col-sm-12'>
           <strong>Applied Candidate</strong> <hr />
           <div className='col'>Candidate Number / Lists</div>
         </div>
-      </div>
-    </div>
+      </div> */}
+    </Fragment>
   );
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
+  recPostJobs: state.job.recPostJobs,
 });
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default connect(mapStateToProps, { getRecPostedJobs })(Dashboard);

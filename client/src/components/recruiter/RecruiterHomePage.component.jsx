@@ -1,16 +1,24 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { jobPost } from '../../redux/actions/jobActions';
+import Alert from '../alert/Alert.component';
 
-const RecruiterHomePage = ({ auth, jobPost, jobs }) => {
+const RecruiterHomePage = ({ auth, jobPost }) => {
   const [companyName, setCompanyName] = useState('');
   const [location, setLocation] = useState('');
   const [skills, setSkills] = useState('');
   const [title, setTitle] = useState('');
   const [type, setType] = useState('Full Time');
   const [des, setDes] = useState('');
+
+  if (
+    (auth.user && auth.user.role === 'engineer') ||
+    auth.isAuthenticated === false
+  )
+    return <Redirect to='/' />;
 
   // console.log('re jobs', jobs);
   const handleSetCompanyName = e => setCompanyName(e.target.value);
@@ -24,7 +32,7 @@ const RecruiterHomePage = ({ auth, jobPost, jobs }) => {
     e.preventDefault();
 
     const body = {
-      rec_id: auth.user._id,
+      recId: auth.user._id,
       type,
       company: companyName,
       location,
@@ -34,6 +42,9 @@ const RecruiterHomePage = ({ auth, jobPost, jobs }) => {
     };
 
     jobPost(body);
+
+    Alert('success', 'Job Posted Successfully!');
+    document.getElementById('input_form').reset();
   };
 
   return (
@@ -43,7 +54,7 @@ const RecruiterHomePage = ({ auth, jobPost, jobs }) => {
       <h3>Post a job here!</h3>
       <br />
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} id='input_form'>
         <FormGroup>
           <Label for='Company'>Company</Label>
           <Input
