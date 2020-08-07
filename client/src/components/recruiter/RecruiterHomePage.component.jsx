@@ -21,12 +21,9 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
     return <Redirect to='/' />;
 
   // console.log('re jobs', jobs);
-  const handleSetCompanyName = e => setCompanyName(e.target.value);
-  const handleSetLocation = e => setLocation(e.target.value);
-  const handleSetSkills = e => setSkills(e.target.value);
-  const handleSetTitle = e => setTitle(e.target.value);
-  const handleSetType = e => setType(e.target.value);
-  const handleSetDes = e => setDes(e.target.value);
+  const handleTextFieldChange = (mySetFunction, event) => {
+    mySetFunction(event.currentTarget.value);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -42,6 +39,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
     };
 
     jobPost(body);
+    // console.log('body ', body);
 
     Alert('success', 'Job Posted Successfully!');
     document.getElementById('input_form').reset();
@@ -63,7 +61,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='Company'
             className='mb-3'
             placeholder='Company Name'
-            onChange={handleSetCompanyName}
+            onChange={e => handleTextFieldChange(setCompanyName, e)} // {handleSetCompanyName}
             required
           />
 
@@ -74,7 +72,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='location'
             className='mb-3'
             placeholder='City or Country name'
-            onChange={handleSetLocation}
+            onChange={e => handleTextFieldChange(setLocation, e)} // {handleSetLocation}
             required
           />
 
@@ -85,7 +83,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='title'
             className='mb-3'
             placeholder='Job Title'
-            onChange={handleSetTitle}
+            onChange={e => handleTextFieldChange(setTitle, e)} // {handleSetTitle}
             required
           />
 
@@ -96,7 +94,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='type'
             className='mb-3'
             required
-            onChange={handleSetType}
+            onChange={e => handleTextFieldChange(setType, e)} // {handleSetType}
           >
             <option>Full Time</option>
             <option>Part Time</option>
@@ -111,7 +109,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='description'
             className='mb-3'
             placeholder='Job description'
-            onChange={handleSetDes}
+            onChange={e => handleTextFieldChange(setDes, e)} // {handleSetDes}
             required
           />
 
@@ -122,7 +120,7 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
             id='key_skills'
             className='mb-3'
             placeholder='java, python..'
-            onChange={handleSetSkills}
+            onChange={e => handleTextFieldChange(setSkills, e)} // {handleSetSkills}
             required
           />
 

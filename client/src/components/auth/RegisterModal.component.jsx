@@ -30,9 +30,9 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
     setModal(!modal);
   }, [clearErrors, modal]);
 
-  const handleChangeName = event => setName(event.target.value);
-  const handleChangeEmail = event => setEmail(event.target.value);
-  const handleChangePassword = event => setPassword(event.target.value);
+  const handleTextFieldChange = (mySetFunction, event) => {
+    mySetFunction(event.currentTarget.value);
+  };
 
   const handleOnSubmit = event => {
     event.preventDefault();
@@ -44,6 +44,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
       password,
     };
 
+    // console.log('user : ', user);
     // Attempt to login
     register(user);
   };
@@ -83,7 +84,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='name'
                 className='mb-3'
                 placeholder='Name'
-                onChange={handleChangeName}
+                onChange={e => handleTextFieldChange(setName, e)} // {handleChangeName}
               />
 
               <Label for='email'>Email</Label>
@@ -93,7 +94,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='email'
                 className='mb-3'
                 placeholder='Email'
-                onChange={handleChangeEmail}
+                onChange={e => handleTextFieldChange(setEmail, e)} // {handleChangeEmail}
               />
 
               <Label for='password'>Password</Label>
@@ -103,7 +104,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='password'
                 className='mb-3'
                 placeholder='Password'
-                onChange={handleChangePassword}
+                onChange={e => handleTextFieldChange(setPassword, e)} //{handleChangePassword}
               />
               <Button color='dark' style={{ marginTop: '2rem' }} block>
                 Register
