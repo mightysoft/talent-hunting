@@ -25,6 +25,8 @@ export const JOB_POST_FAIL = 'JOB_POST_FAIL';
 
 export const GET_ALL_JOBS = 'GET_ALL_JOBS';
 
+export const SEARCH_JOBS = 'SEARCH_JOBS';
+
 export const JOB_DETAIL = 'JOB_DETAIL';
 
 export const JOBS_LOADING = 'JOBS_LOADING';

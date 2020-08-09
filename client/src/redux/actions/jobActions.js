@@ -78,8 +78,8 @@ export const getJobDetails = id => (dispatch, getState) => {
 export const applyJob = body => (dispatch, getState) => {
   axios
     .post(`/api/job/apply-job`, body, tokenConfig(getState))
-    .then(res =>
-      console.log('Applied Data ',res.data)
+    .then(
+      res => console.log('Applied Data ', res.data)
       // dispatch({
       //   type: actions.GET_JOB_APPLIED_DATA,
       //   payload: res.data,
@@ -98,6 +98,23 @@ export const getAppliedData = jobId => (dispatch, getState) => {
       // console.log('getAppliedData ',res.data)
       dispatch({
         type: actions.GET_JOB_APPLIED_DATA,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
+// search jobs by job location, title, type, company
+export const searchJobs = text => (dispatch, getState) => {
+  dispatch(setJobsLoading());
+  axios
+    .get(`/api/job/search-jobs/${text}`, tokenConfig(getState))
+    .then(res =>
+      // console.log('getAppliedData ', res.data)
+      dispatch({
+        type: actions.SEARCH_JOBS,
         payload: res.data,
       })
     )

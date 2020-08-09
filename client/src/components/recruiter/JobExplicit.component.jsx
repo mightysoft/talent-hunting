@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { Button, Form } from 'react-bootstrap';
@@ -15,7 +15,6 @@ const JobExplicit = ({
 }) => {
   const { id } = useParams();
   const jobDetail = job.job;
-  console.log('appliedData ', appliedData);
   useEffect(() => {
     getJobDetails(id);
     getAppliedData(id);
@@ -24,7 +23,6 @@ const JobExplicit = ({
   if (auth.isAuthenticated === false) return <Redirect to='/' />;
   return (
     <Fragment>
-      {' '}
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
       <br />
       <h1>Applied Data</h1>
@@ -34,7 +32,6 @@ const JobExplicit = ({
       {appliedData.data && appliedData.data.length <= 0 && (
         <h4>No one applied yet!</h4>
       )}
-      <a href=''></a>
     </Fragment>
   );
 };

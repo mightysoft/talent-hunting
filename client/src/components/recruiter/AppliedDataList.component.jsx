@@ -18,6 +18,7 @@ const AppliedDataList = ({ appliedData }) => {
           {da.user.email}
         </a>
       ),
+      emailData: da.user.email,
       userSkills: da.userSkills.map(el => el + ', '),
       skillsPerc: da.skillsPerc + '%',
       percNum: da.skillsPerc,
