@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
-// const chalk = require('chalk');
+const compression = require('compression');
 
 
 const globalErrorHandler = require('./controllers/errorController');
@@ -20,6 +20,10 @@ app.use(cors());
 
 app.options('*',cors());
 
+// view engine
+app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+
 // Development Logging 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
@@ -28,6 +32,8 @@ if(process.env.NODE_ENV === 'development'){
 // Body parser Middleware
 app.use(express.json());
 
+// compress all responses
+app.use(compression());
 
 // Use Routes
 app.use('/api/users', userRoutes);

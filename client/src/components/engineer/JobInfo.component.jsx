@@ -39,6 +39,7 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
 
     Alert('success', 'Application submitted successfully!');
     document.getElementById('input_form').reset();
+    setIsOpen(false);
   };
 
   return (

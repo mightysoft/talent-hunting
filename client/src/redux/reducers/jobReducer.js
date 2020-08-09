@@ -30,6 +30,13 @@ export default function (state = initialState, action) {
         isLoading: false,
       };
 
+    case actions.SEARCH_JOBS:
+      return {
+        ...state,
+        jobs: action.payload,
+        isLoading: false,
+      };
+
     case actions.JOB_DETAIL:
       return {
         ...state,
