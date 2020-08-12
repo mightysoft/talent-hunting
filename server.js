@@ -12,7 +12,7 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('Database connection Successful!'))
+  .then(() => console.log(`DB connection ${chalk.greenBright('successful!')}`))
   .catch(err => console.log(chalk.redBright(err)));
 const port = process.env.PORT || 8000;
 app.listen(port, () =>

@@ -3,28 +3,19 @@ import { connect } from 'react-redux';
 import { login } from '../../redux/actions/authActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import RecruiterHomePage from '../recruiter/RecruiterHomePage.component';
-import EngineerHomePage from '../engineer/EngineerHomePage.component';
+import CandidateHomePage from '../candidate/CandidateHomePage.component';
 
-const UserDiv = ({ user }) => (
-  <div>
-    {user.role === 'engineer' ? <EngineerHomePage /> : <RecruiterHomePage />}
-  </div>
-);
-
-function LogInForm({ auth }) {
-  console.log('auth : ', auth.isAuthenticated);
-  if (auth && auth.user && auth.user.role === 'recruiter') {
+const LogInForm = ({ auth }) => {
+  if (auth.user && auth.user.role === 'recruiter') {
     return <RecruiterHomePage />;
   }
 
-  if (auth && auth.user && auth.user.role === 'engineer') {
-    return <EngineerHomePage />;
+  if (auth.user && auth.user.role === 'candidate') {
+    return <CandidateHomePage />;
   }
 
   return (
     <Fragment>
-      {auth && auth.user && <UserDiv user={auth.user} />}
-
       {auth.isAuthenticated === false && (
         <h4 className='mb-3 ml-4'>
           Welcome to Talent Hunting! <br /> Please log in to process....
@@ -32,7 +23,7 @@ function LogInForm({ auth }) {
       )}
     </Fragment>
   );
-}
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,

@@ -12,16 +12,13 @@ const Dashboard = ({
   getRecPostedJobs,
   recPostJobs,
 }) => {
-  console.log('user ', user);
-  console.log('recPostJobs ', recPostJobs);
   useEffect(() => {
     if (user) {
-      console.log('here');
       getRecPostedJobs(user._id);
     }
   }, [user]);
 
-  if ((user && user.role === 'engineer') || isAuthenticated === false)
+  if ((user && user.role === 'candidate') || isAuthenticated === false)
     return <Redirect to='/' />;
 
   return (

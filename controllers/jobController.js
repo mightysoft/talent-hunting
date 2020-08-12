@@ -98,11 +98,11 @@ exports.appliedData = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getJobsByName = catchAsync(async (req, res, next) => {
+// const jobs = await Job.find({ location: { $regex: name, $options: 'i' } });
+// const jobs = await Job.find({ $text: { $search: "developer" } });
+exports.searchJobs = catchAsync(async (req, res, next) => {
   const searchTex = req.params.searchTex;
 
-  // const jobs = await Job.find({ location: { $regex: name, $options: 'i' } });
-  // const jobs = await Job.find({ $text: { $search: "developer" } });
   const jobs = await Job.find({
     $or: [
       { title: { $regex: searchTex, $options: 'i' } },
@@ -112,11 +112,12 @@ exports.getJobsByName = catchAsync(async (req, res, next) => {
     ],
   }).sort({ createdAt: -1 });
 
-  if (jobs.length === 0) return res.status(404).json({
-    status: 'fail',
-    results: jobs.length,
-    message: 'No jobs found with that search text. Try differen! ☹'
-  })
+  if (jobs.length === 0)
+    return res.status(404).json({
+      status: 'fail',
+      results: jobs.length,
+      message: 'No jobs found with that search text. Try differen! ☹',
+    });
 
   res.status(200).json({
     status: 'success',

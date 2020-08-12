@@ -15,12 +15,11 @@ const RecruiterHomePage = ({ auth, jobPost }) => {
   const [des, setDes] = useState('');
 
   if (
-    (auth.user && auth.user.role === 'engineer') ||
+    (auth.user && auth.user.role === 'candidate') ||
     auth.isAuthenticated === false
   )
     return <Redirect to='/' />;
 
-  // console.log('re jobs', jobs);
   const handleTextFieldChange = (mySetFunction, event) => {
     mySetFunction(event.currentTarget.value);
   };

@@ -25,7 +25,7 @@ exports.ensureRecruiter = async (req, res, next) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    if (user.role === 'engineer') {
+    if (user.role === 'candidate') {
       return next(new AppError('You are not allowed!', 401));
     }
 
@@ -35,7 +35,7 @@ exports.ensureRecruiter = async (req, res, next) => {
   }
 };
 
-exports.ensureEngineer = async (req, res, next) => {
+exports.ensureCandidate = async (req, res, next) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 

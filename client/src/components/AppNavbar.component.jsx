@@ -24,22 +24,20 @@ const AppNavbar = ({ auth }) => {
     <Fragment>
       <NavItem>
         <span className='navbar-text mr-3'>
-          <strong>
-            {auth && auth.user ? `Welcome ${auth.user.name}` : null}
-          </strong>
+          <strong>{auth.user ? `Welcome ${auth.user.name}` : null}</strong>
         </span>
       </NavItem>
       <NavItem className='p-2'>
         {auth.user && auth.user.role === 'recruiter' ? (
-          <Link className='option' to='/recruiter-home'>
+          <Link className='option' to='/recruiter-homepage'>
             Home
           </Link>
         ) : (
-          <Link to='/dev-home'>Home</Link>
+          <Link to='/candidate-homepage'>Home</Link>
         )}
       </NavItem>
 
-      {auth && auth.user && auth.user.role === 'recruiter' && (
+      {auth.user && auth.user.role === 'recruiter' && (
         <>
           <NavItem className='p-2'>
             <Link className='option' to='/recruiter-dashboard'>

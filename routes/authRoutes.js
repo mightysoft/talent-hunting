@@ -32,10 +32,10 @@ router.post('/', (req, res, next) => {
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
-          if (user.role === 'engineer') {
+          if (user.role === 'candidate') {
             return res.json({
               status: 'success',
-              message: 'welcome to Engineer panel',
+              message: 'welcome to Candidate panel',
               token,
               user: {
                 _id: user.id,

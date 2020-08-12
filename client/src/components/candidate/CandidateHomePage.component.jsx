@@ -6,18 +6,15 @@ import { connect } from 'react-redux';
 import { getAllJobs, searchJobs } from '../../redux/actions/jobActions';
 import Job from '../job/Job.component';
 
-const EngineerHomePage = ({ auth, getAllJobs, searchJobs, jobs }) => {
+const CandidateHomePage = ({ auth, getAllJobs, searchJobs, jobs }) => {
   const [text, setText] = useState('');
-  console.log('jobs ', jobs);
 
   useEffect(() => {
-    console.log('1 called 😀');
     getAllJobs();
   }, [text.length === 0]);
 
   useEffect(() => {
     if (text) {
-      console.log('2 called 🚀');
       searchJobs(text);
     }
   }, [text]);
@@ -28,10 +25,11 @@ const EngineerHomePage = ({ auth, getAllJobs, searchJobs, jobs }) => {
     return <Redirect to='/' />;
 
   const handleTextChange = e => setText(e.target.value);
+
   // TODO: margin, padding
   return (
     <Fragment>
-      <h2>Welcome to Engineer Page!</h2>
+      <h2>Welcome to Candidate Page! 🎉</h2>
       <h5>All Job Posts :</h5>
       <MDBCol md='4' className='float-right'>
         <MDBFormInline className='md-form'>
@@ -61,5 +59,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getAllJobs, searchJobs })(
-  EngineerHomePage
+  CandidateHomePage
 );
