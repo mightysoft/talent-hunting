@@ -9,6 +9,13 @@ router.get('/search-jobs/:searchTex', jobController.searchJobs);
 router.get('/all-jobs', jobController.getAllJobPost);
 
 router.use(auth);
+
+// get applied data only for candidate
+router.get('/get-applied-data-candidate/:candidateEmail/:jobId',ensureCandidate,jobController.candidateAppliedData);
+
+// get applied all data for candidate
+router.get('/candidate-applied-jobs/:candidateEmail', ensureCandidate, jobController.candidateAppliedJobs)
+
 // apply job, only for candidates/developer (jobId)
 router.post('/apply-job', ensureCandidate, jobController.applyJob);
 

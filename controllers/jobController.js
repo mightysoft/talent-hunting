@@ -98,6 +98,41 @@ exports.appliedData = catchAsync(async (req, res, next) => {
   });
 });
 
+// Get applied data for candidates if he already applied he will view his score and his applied data if not then he will show his apply option!
+exports.candidateAppliedData = catchAsync(async (req, res, next) => {
+  const {candidateEmail, jobId } = req.params;
+  // console.log(candidateEmail);
+  // console.log(jobId);
+  const jobAppliedData = await Applied.find({ 'candidate.email': candidateEmail,jobId });
+
+  if(jobAppliedData.length <= 0){
+    return res.status(404).json({
+      status: 'Error',
+      results: 0 ,
+      message: 'No applied job found with that candidate email and job id',
+    });
+  }
+  res.status(200).json({
+    status: 'success',
+    results: jobAppliedData.length,
+    data : jobAppliedData
+  });
+});
+
+// candidate can check which type of job post he can apply and how many job applied on his dashboard!
+exports.candidateAppliedJobs = catchAsync(async (req, res, next) => {
+  const candidateEmail = req.params.candidateEmail;
+  // console.log(candidateEmail);
+
+  const candidateAppliedJobs = await Applied.find({'candidate.email': candidateEmail})
+  if(candidateAppliedJobs<= 0 ) return next(new AppError('No applied jobs found with this email',404));
+  res.status(200).json({
+    status: 'success',
+    results: candidateAppliedJobs.length,
+    candidateAppliedJobs
+  });
+})
+
 // const jobs = await Job.find({ location: { $regex: name, $options: 'i' } });
 // const jobs = await Job.find({ $text: { $search: "developer" } });
 exports.searchJobs = catchAsync(async (req, res, next) => {
