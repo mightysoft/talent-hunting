@@ -77,12 +77,11 @@ export const getJobDetails = id => (dispatch, getState) => {
 export const applyJob = body => (dispatch, getState) => {
   axios
     .post(`/api/job/apply-job`, body, tokenConfig(getState))
-    .then(
-      res => console.log('Applied Data ', res.data)
-      // dispatch({
-      //   type: actions.GET_JOB_APPLIED_DATA,
-      //   payload: res.data,
-      // }) TODO: show applied result to a user if he/she applied
+    .then(res =>
+      dispatch({
+        type: actions.GET_JOB_APPLIED_DATA,
+        payload: res.data,
+      })
     )
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
@@ -102,6 +101,30 @@ export const getAppliedData = jobId => (dispatch, getState) => {
     )
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
+// get applied data based on job id AND candidate id => only for candidate
+export const getCandidateAppliedData = (candidateEmail, jobId) => (
+  dispatch,
+  getState
+) => {
+  axios
+    .get(
+      `/api/job/get-applied-data-candidate/${candidateEmail}/${jobId}`,
+      tokenConfig(getState)
+    )
+    .then(res =>
+      // console.log('getAppliedData ',res.data)
+      dispatch({
+        type: actions.GET_JOB_APPLIED_DATA,
+        payload: res.data.data,
+      })
+    )
+    .catch(err => 
+      dispatch({type: actions.NO_DATA_FOUND})
+      // console.log('err : ', err.response.data)
+      // dispatch(returnErrors(err.response.data, err.response.status))
     );
 };
 

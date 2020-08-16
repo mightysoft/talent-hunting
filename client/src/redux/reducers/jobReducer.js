@@ -4,7 +4,9 @@ const initialState = {
   jobs: [],
   job: [],
   recPostJobs: [],
+  allAppliedData: [],
   appliedData: [],
+  isApplied: false,
   isLoading: false,
 };
 
@@ -48,6 +50,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
         appliedData: action.payload,
+        isApplied: true,
+      };
+
+    case actions.NO_DATA_FOUND:
+      return {
+        ...state,
+        appliedData: [],
+        isApplied: false,
+      };
+
+    case actions.GET_CANDIDATE_APPLIED_DATA:
+      return {
+        ...state,
+        allAppliedData: action.payload,
       };
 
     case actions.REC_POSTED_JOBS:
