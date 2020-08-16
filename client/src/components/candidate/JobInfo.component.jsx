@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card, Badge } from 'react-bootstrap';
 
 import JobDetail from '../job/JobDetail.component';
-import { getJobDetails, applyJob } from '../../redux/actions/jobActions';
+import {
+  getJobDetails,
+  applyJob,
+  getCandidateAppliedData,
+} from '../../redux/actions/jobActions';
 import Alert from '../alert/Alert.component';
 
-const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
+const JobInfo = ({
+  auth,
+  getJobDetails,
+  job,
+  applyJob,
+  getCandidateAppliedData,
+  appliedData,
+  isApplied,
+  isLoading,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [education, setEducation] = useState('');
@@ -18,7 +31,10 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
 
   useEffect(() => {
     getJobDetails(id);
-  }, ['']);
+    if (auth.user) {
+      getCandidateAppliedData(auth.user.email, id);
+    }
+  }, [auth, isApplied]);
 
   if (auth.isAuthenticated === false) return <Redirect to='/' />;
   const handleToggle = () => setIsOpen(!isOpen);
@@ -31,7 +47,7 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
     e.preventDefault();
 
     const body = {
-      user: {
+      candidate: {
         name: auth.user.name,
         email: auth.user.email,
       },
@@ -51,12 +67,41 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
     <div>
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
       <br />
-      <Button variant='outline-success' title='Apply' onClick={handleToggle}>
-        Apply!
-      </Button>{' '}
-      <br /> <hr />
+      {appliedData && appliedData.length > 0 && (
+        <Card>
+          {appliedData.map(el => (
+            <div className='m-3' key={el._id}>
+              <h4 className='text-dark'>
+                Your Submitted Skills :{' '}
+                {el.candidateSkills.map(skill => (
+                  <Badge variant='light' className='mr-2' key={skill}>
+                    <h6>{skill}</h6>
+                  </Badge>
+                ))}
+              </h4>
+              <h4>
+                Skill Perc :{' '}
+                <span className='text-success'>
+                  {el.skillsPerc.substring(0, 5)}%
+                </span>
+              </h4>
+            </div>
+          ))}
+
+          <p className='m-3'>
+            Here is your applied data. Recruiter will contract you.{' '}
+          </p>
+        </Card>
+      )}
+      {!isApplied && (
+        <Button variant='outline-success' title='Apply' onClick={handleToggle}>
+          Apply!
+        </Button>
+      )}
+      <br />
       {isOpen && (
         <Form id='input_form' onSubmit={handleSubmit}>
+          <hr />
           <Form.Group>
             <Form.Label>Education : </Form.Label>{' '}
             {['BSC', 'MSC', 'PHD', 'OTHERS'].map(el => (
@@ -95,8 +140,14 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
 
 const mapStateToProps = state => ({
   job: state.job.job,
+  appliedData: state.job.appliedData,
+  isApplied: state.job.isApplied,
   auth: state.auth,
   isLoading: state.job.isLoading,
 });
 
-export default connect(mapStateToProps, { getJobDetails, applyJob })(JobInfo);
+export default connect(mapStateToProps, {
+  getJobDetails,
+  applyJob,
+  getCandidateAppliedData,
+})(JobInfo);

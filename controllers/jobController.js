@@ -32,10 +32,11 @@ exports.postedJobs = catchAsync(async (req, res, next) => {
 
 // apply job
 exports.applyJob = catchAsync(async (req, res, next) => {
-  const { user, jobId, skills } = req.body;
+  const { candidate, jobId, skills } = req.body;
+  const {name, email} = candidate;
   let count = 0;
 
-  const userData = await User.findOne({ email: user.email });
+  const userData = await User.findOne({ email});
 
   const job = await Job.findById(jobId);
 
@@ -63,9 +64,9 @@ exports.applyJob = catchAsync(async (req, res, next) => {
   const skillsPerc = (count / jobSkills.length) * 100;
 
   const applied = await Applied.create({
-    user: { name: user.name, email: user.email },
+    candidate: { name, email },
     jobId,
-    userSkills: uniqueSkills,
+    candidateSkills: uniqueSkills,
     skillsPerc,
   });
 

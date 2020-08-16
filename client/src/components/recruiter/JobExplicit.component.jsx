@@ -10,7 +10,7 @@ const JobExplicit = ({
   auth,
   getJobDetails,
   getAppliedData,
-  appliedData,
+  allAppliedData,
   job,
 }) => {
   const { id } = useParams();
@@ -26,10 +26,10 @@ const JobExplicit = ({
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
       <br />
       <h1>Applied Data</h1>
-      {appliedData.data && appliedData.data.length > 0 && (
-        <AppliedDataList appliedData={appliedData.data} />
+      {allAppliedData.data && allAppliedData.data.length > 0 && (
+        <AppliedDataList appliedData={allAppliedData.data} />
       )}
-      {appliedData.data && appliedData.data.length <= 0 && (
+      {allAppliedData.data && allAppliedData.data.length <= 0 && (
         <h4>No one applied yet!</h4>
       )}
     </Fragment>
@@ -38,7 +38,7 @@ const JobExplicit = ({
 
 const mapStateToProps = state => ({
   job: state.job.job,
-  appliedData: state.job.appliedData,
+  allAppliedData: state.job.allAppliedData,
   auth: state.auth,
   isLoading: state.job.isLoading,
 });
