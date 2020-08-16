@@ -10,17 +10,22 @@ import Alert from '../alert/Alert.component';
 const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [education, setEducation] = useState('');
   const [skills, setSkills] = useState('');
 
   const jobDetail = job.job;
   const { id } = useParams();
+
   useEffect(() => {
     getJobDetails(id);
   }, ['']);
+
   if (auth.isAuthenticated === false) return <Redirect to='/' />;
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const handleTextChange = e => setSkills(e.target.value);
+  const handleTextFieldChange = (mySetFunction, event) => {
+    mySetFunction(event.currentTarget.value);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -31,10 +36,10 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
         email: auth.user.email,
       },
       jobId: id,
+      // education,
       skills,
     };
 
-    console.log('user info ', body);
     applyJob(body);
 
     Alert('success', 'Application submitted successfully!');
@@ -45,20 +50,34 @@ const JobInfo = ({ auth, getJobDetails, job, applyJob, isLoading }) => {
   return (
     <div>
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
-
       <br />
       <Button variant='outline-success' title='Apply' onClick={handleToggle}>
         Apply!
-      </Button>
-
+      </Button>{' '}
+      <br /> <hr />
       {isOpen && (
         <Form id='input_form' onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Education : </Form.Label>{' '}
+            {['BSC', 'MSC', 'PHD', 'OTHERS'].map(el => (
+              <Form.Check
+                key={el}
+                type='radio'
+                label={el}
+                inline
+                name='education'
+                id={el}
+                value={el}
+                onChange={e => handleTextFieldChange(setEducation, e)}
+              />
+            ))}
+          </Form.Group>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>Please Enter Your skills here : </Form.Label>
             <Form.Control
               type='text'
               placeholder='html, css...'
-              onChange={handleTextChange}
+              onChange={e => handleTextFieldChange(setSkills, e)}
               required
             />
             <Form.Text className='text-danger'>

@@ -16,10 +16,10 @@ import { loadUser } from './redux/actions/authActions';
 
 import Dashboard from './components/recruiter/Dashboard.component';
 import LogInForm from './components/auth/LogInForm.component';
-import RecruiterHomePage from './components/recruiter/RecruiterHomePage.component'
-import EngineerHomePage from './components/engineer/EngineerHomePage.component';
+import RecruiterHomePage from './components/recruiter/RecruiterHomePage.component';
+import CandidateHomePage from './components/candidate/CandidateHomePage.component';
 
-import JobInfo from './components/engineer/JobInfo.component';
+import JobInfo from './components/candidate/JobInfo.component';
 
 import JobExplicit from './components/recruiter/JobExplicit.component';
 
@@ -37,8 +37,8 @@ const App = () => {
         <Container>
           <Switch>
             <Route exact path='/' component={LogInForm} />
-            <Route exact path='/dev-home' component={EngineerHomePage} />
-            <Route exact path='/recruiter-home' component={RecruiterHomePage} />
+            <Route exact path='/candidate-homepage' component={CandidateHomePage} />
+            <Route exact path='/recruiter-homepage' component={RecruiterHomePage} />
             <Route exact path='/recruiter-dashboard' component={Dashboard} />
 
             {/* only for recruiter */}

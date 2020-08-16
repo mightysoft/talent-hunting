@@ -35,7 +35,7 @@ const Job = ({ job, user }) => {
 
           <Button
             onClick={() =>
-              user.role === 'engineer'
+              user.role === 'candidate'
                 ? history.push(`/job-info/${job._id}`)
                 : history.push(`/job-explicit/${job._id}`)
             }

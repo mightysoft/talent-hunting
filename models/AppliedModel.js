@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const appliedSchema = new mongoose.Schema({
-  user: {
+  candidate: {
     name: {
       type: String,
       required: [true, 'Applied must belong to a user (name).'],
@@ -22,7 +22,7 @@ const appliedSchema = new mongoose.Schema({
     required: [true, 'Applied must belong to a job.'],
   },
 
-  userSkills: {
+  candidateSkills: {
     type: Array,
     required: [true, 'User must have skills.'],
   },

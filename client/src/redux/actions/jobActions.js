@@ -8,7 +8,6 @@ export const jobPost = body => (dispatch, getState) => {
   axios
     .post('/api/job/create-job-post', body, tokenConfig(getState))
     .then(res => {
-      console.log('res', res.data);
       dispatch({
         type: actions.JOB_POST,
         payload: res.data,
@@ -40,7 +39,7 @@ export const getRecPostedJobs = id => (dispatch, getState) => {
     );
 };
 
-// get all posted jobs -> only for developer/engineer
+// get all posted jobs -> only for candidate
 export const getAllJobs = () => (dispatch, getState) => {
   dispatch(setJobsLoading());
   axios
@@ -74,7 +73,7 @@ export const getJobDetails = id => (dispatch, getState) => {
     );
 };
 
-// apply a job => only for dev/engineers
+// apply a job => only for candidate
 export const applyJob = body => (dispatch, getState) => {
   axios
     .post(`/api/job/apply-job`, body, tokenConfig(getState))

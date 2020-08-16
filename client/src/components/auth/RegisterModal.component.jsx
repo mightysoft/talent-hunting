@@ -44,7 +44,6 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
       password,
     };
 
-    // console.log('user : ', user);
     // Attempt to login
     register(user);
   };
@@ -84,7 +83,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='name'
                 className='mb-3'
                 placeholder='Name'
-                onChange={e => handleTextFieldChange(setName, e)} // {handleChangeName}
+                onChange={e => handleTextFieldChange(setName, e)}
               />
 
               <Label for='email'>Email</Label>
@@ -94,7 +93,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='email'
                 className='mb-3'
                 placeholder='Email'
-                onChange={e => handleTextFieldChange(setEmail, e)} // {handleChangeEmail}
+                onChange={e => handleTextFieldChange(setEmail, e)}
               />
 
               <Label for='password'>Password</Label>
@@ -104,7 +103,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
                 id='password'
                 className='mb-3'
                 placeholder='Password'
-                onChange={e => handleTextFieldChange(setPassword, e)} //{handleChangePassword}
+                onChange={e => handleTextFieldChange(setPassword, e)}
               />
               <Button color='dark' style={{ marginTop: '2rem' }} block>
                 Register

@@ -1,34 +1,40 @@
 const express = require('express');
 const jobController = require('../controllers/jobController');
-const { auth, ensureEngineer, ensureRecruiter } = require('../middleware/auth');
+const { auth, ensureCandidate, ensureRecruiter } = require('../middleware/auth');
 const router = express.Router();
 
-router.get('/search-jobs/:searchTex', jobController.getJobsByName);
-// get-jobs, only for engineers
+router.get('/search-jobs/:searchTex', jobController.searchJobs);
+
+// get-jobs, only for candidates
 router.get('/all-jobs', jobController.getAllJobPost);
 
-// router.use();
-// apply job, only for engineers/developer (jobId)
-router.post('/apply-job',auth, ensureEngineer, jobController.applyJob);
+router.use(auth);
+
+// get applied data only for candidate
+router.get('/get-applied-data-candidate/:candidateEmail/:jobId',ensureCandidate,jobController.candidateAppliedData);
+
+// get applied all data for candidate
+router.get('/candidate-applied-jobs/:candidateEmail', ensureCandidate, jobController.candidateAppliedJobs)
+
+// apply job, only for candidates/developer (jobId)
+router.post('/apply-job', ensureCandidate, jobController.applyJob);
 
 // get applied data by jobId, only for recruiter
 router.get(
   '/get-applied-data/:jobId',
-  auth,
   ensureRecruiter,
   jobController.appliedData
 );
 
 // create job post, only for recruiters
-router.post('/create-job-post',auth, ensureRecruiter, jobController.createJobPost);
+router.post('/create-job-post', ensureRecruiter, jobController.createJobPost);
 
 // get a particular jon post!
-router.get('/get-job-post/:id',auth, jobController.getJobPost);
+router.get('/get-job-post/:id', jobController.getJobPost);
 
 // get posted jobs by recruiter id, only for recruiter
 router.get(
   '/get-posted-jobs/:recruiterId',
-  auth,
   ensureRecruiter,
   jobController.postedJobs
 );
@@ -36,7 +42,6 @@ router.get(
 // update job post, only for recruiters
 router.patch(
   '/update-job-post/:id',
-  auth,
   ensureRecruiter,
   jobController.updateJobPost
 );
@@ -44,7 +49,6 @@ router.patch(
 // delete job post, only for reacuiters
 router.delete(
   '/delete-job-post/:id',
-  auth,
   ensureRecruiter,
   jobController.deleteJobPost
 );
