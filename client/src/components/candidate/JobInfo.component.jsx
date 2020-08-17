@@ -68,30 +68,13 @@ const JobInfo = ({
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
       <br />
       {appliedData && appliedData.length > 0 && (
-        <Card>
-          {appliedData.map(el => (
-            <div className='m-3' key={el._id}>
-              <h4 className='text-dark'>
-                Your Submitted Skills :{' '}
-                {el.candidateSkills.map(skill => (
-                  <Badge variant='light' className='mr-2' key={skill}>
-                    <h6>{skill}</h6>
-                  </Badge>
-                ))}
-              </h4>
-              <h4>
-                Skill Perc :{' '}
-                <span className='text-success'>
-                  {el.skillsPerc.substring(0, 5)}%
-                </span>
-              </h4>
-            </div>
-          ))}
-
-          <p className='m-3'>
-            Here is your applied data. Recruiter will contract you.{' '}
-          </p>
-        </Card>
+        <Button
+          variant='outline-success'
+          title='You already applied this job.'
+          disabled
+        >
+          Applied!
+        </Button>
       )}
       {!isApplied && (
         <Button variant='outline-success' title='Apply' onClick={handleToggle}>

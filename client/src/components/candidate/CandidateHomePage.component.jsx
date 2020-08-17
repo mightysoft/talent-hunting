@@ -35,7 +35,7 @@ const CandidateHomePage = ({ auth, getAllJobs, searchJobs, jobs }) => {
         <MDBFormInline className='md-form'>
           <MDBIcon icon='search' />
           <input
-            className='form-control form-control-sm ml-3 w-75'
+            className='form-control form-control-sm w-70'
             type='text'
             placeholder='Search'
             aria-label='Search'
@@ -43,6 +43,7 @@ const CandidateHomePage = ({ auth, getAllJobs, searchJobs, jobs }) => {
           />
         </MDBFormInline>
       </MDBCol>
+      <br />
       <br />
       <br />
       <br />

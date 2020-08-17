@@ -117,7 +117,7 @@ export const getCandidateAppliedData = (candidateEmail, jobId) => (
     .then(res =>
       // console.log('getAppliedData ',res.data)
       dispatch({
-        type: actions.GET_JOB_APPLIED_DATA,
+        type: actions.GET_CANDIDATE_APPLIED_DATA,
         payload: res.data.data,
       })
     )

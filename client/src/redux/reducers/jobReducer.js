@@ -49,7 +49,7 @@ export default function (state = initialState, action) {
     case actions.GET_JOB_APPLIED_DATA:
       return {
         ...state,
-        appliedData: action.payload,
+        allAppliedData: action.payload,
         isApplied: true,
       };
 
@@ -63,7 +63,7 @@ export default function (state = initialState, action) {
     case actions.GET_CANDIDATE_APPLIED_DATA:
       return {
         ...state,
-        allAppliedData: action.payload,
+        appliedData: action.payload,
       };
 
     case actions.REC_POSTED_JOBS:

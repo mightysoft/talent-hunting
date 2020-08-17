@@ -20,6 +20,8 @@ const JobExplicit = ({
     getAppliedData(id);
   }, ['']);
 
+  console.log('a data : ', allAppliedData);
+
   if (auth.isAuthenticated === false) return <Redirect to='/' />;
   return (
     <Fragment>
