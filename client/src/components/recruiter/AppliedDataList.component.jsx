@@ -7,19 +7,19 @@ const AppliedDataList = ({ appliedData }) => {
   // storing user daily works data in rows data
   appliedData.forEach(da =>
     rowsData.push({
-      name: da.user.name,
+      name: da.candidate.name,
       email: (
         <a
           className='text-info'
           target='_blank'
           rel='noopener noreferrer'
-          href={`mailto:${da.user.email}`}
+          href={`mailto:${da.candidate.email}`}
         >
-          {da.user.email}
+          {da.candidate.email}
         </a>
       ),
-      emailData: da.user.email,
-      userSkills: da.userSkills.map(el => el + ', '),
+      emailData: da.candidate.email,
+      candidate: da.candidateSkills.map(el => el + ', '),
       skillsPerc: da.skillsPerc + '%',
       percNum: da.skillsPerc,
     })
@@ -41,7 +41,7 @@ const AppliedDataList = ({ appliedData }) => {
       },
       {
         label: 'Skills',
-        field: 'userSkills',
+        field: 'candidateSkills',
         sort: 'desc',
         width: 150,
       },
