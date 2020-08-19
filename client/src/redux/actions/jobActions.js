@@ -45,10 +45,10 @@ export const getAllJobs = () => (dispatch, getState) => {
   axios
     .get('/api/job/all-jobs', tokenConfig(getState))
     .then(res =>
-      // console.log(res.data)
+      // console.log('jobs', res.data.jobs)
       dispatch({
         type: actions.GET_ALL_JOBS,
-        payload: res.data,
+        payload: res.data.jobs,
       })
     )
     .catch(err =>
@@ -137,7 +137,7 @@ export const searchJobs = text => (dispatch, getState) => {
       // console.log('getAppliedData ', res.data)
       dispatch({
         type: actions.SEARCH_JOBS,
-        payload: res.data,
+        payload: res.data.jobs,
       })
     )
     .catch(err =>

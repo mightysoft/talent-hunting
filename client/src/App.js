@@ -3,7 +3,7 @@ import AppNavbar from './components/AppNavbar.component';
 import { Container } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'mdbreact/dist/css/mdb.css';
+// import 'mdbreact/dist/css/mdb.css';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -42,9 +42,9 @@ const App = () => {
             <Route exact path='/recruiter-dashboard' component={Dashboard} />
 
             {/* only for recruiter */}
-            <Route exact path='/job-explicit/:id' component={JobExplicit} />
+            <Route exact path='/job-explicit/:id/:title' component={JobExplicit} />
             {/* only for dev/eng */}
-            <Route exact path='/job-info/:id' component={JobInfo} />
+            <Route exact path='/job-info/:id/:title' component={JobInfo} />
           </Switch>
         </Container>
       </div>

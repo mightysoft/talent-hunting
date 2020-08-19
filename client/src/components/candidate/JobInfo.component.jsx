@@ -67,20 +67,31 @@ const JobInfo = ({
     <div>
       {jobDetail && <JobDetail jobDetail={jobDetail} />}
       <br />
-      {appliedData && appliedData.length > 0 && (
-        <Button
-          variant='outline-success'
-          title='You already applied this job.'
-          disabled
-        >
-          Applied!
-        </Button>
-      )}
-      {!isApplied && (
+      {appliedData && appliedData.length > 0 ? (
+        <div>
+          <Button
+            variant='outline-dark'
+            title='You already applied this job.'
+            disabled
+          >
+            Applied!
+          </Button>{' '}
+          <br />
+          <br />
+          <p className='text-success'>
+            [N.B. ] : You already applied this job.
+          </p>
+        </div>
+      ) : (
         <Button variant='outline-success' title='Apply' onClick={handleToggle}>
           Apply!
         </Button>
       )}
+      {/* {!isApplied && (
+        <Button variant='outline-success' title='Apply' onClick={handleToggle}>
+          Apply!
+        </Button>
+      )} */}
       <br />
       {isOpen && (
         <Form id='input_form' onSubmit={handleSubmit}>
